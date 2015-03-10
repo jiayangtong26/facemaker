@@ -58,7 +58,7 @@
         @autoreleasepool {
             CategoryViewController *vc = [CategoryViewController createCategoriesViewControllerWithType:type];
             [vc.view setFrame:CGRectMake(0,
-                                         self.view.frame.size.height*2/3 + self.navigationController.navigationBar.frame.size.height * 1.5,
+                                         self.view.frame.size.height*2/3 + self.navigationController.navigationBar.frame.size.height * 1.3,
                                          self.faceview.frame.size.width,
                                          self.view.frame.size.height/4)];
             vc.delegate = self;

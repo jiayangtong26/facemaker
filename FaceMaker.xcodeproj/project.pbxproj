@@ -22,8 +22,6 @@
 		55949E2A1AAA536100569AEB /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E291AAA536100569AEB /* Categories.m */; };
 		55949E2D1AAA53D900569AEB /* ImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E2C1AAA53D900569AEB /* ImageResource.m */; };
 		55949E301AAA550200569AEB /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E2F1AAA550200569AEB /* CategoryViewController.m */; };
-		55949E371AAA58AA00569AEB /* FMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E351AAA58AA00569AEB /* FMCollectionViewCell.m */; };
-		55949E381AAA58AA00569AEB /* FMCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55949E361AAA58AA00569AEB /* FMCollectionViewCell.xib */; };
 		55FCBD361AAAB270002CA88A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,9 +62,6 @@
 		55949E2C1AAA53D900569AEB /* ImageResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResource.m; sourceTree = "<group>"; };
 		55949E2E1AAA550200569AEB /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		55949E2F1AAA550200569AEB /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
-		55949E341AAA58AA00569AEB /* FMCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMCollectionViewCell.h; sourceTree = "<group>"; };
-		55949E351AAA58AA00569AEB /* FMCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMCollectionViewCell.m; sourceTree = "<group>"; };
-		55949E361AAA58AA00569AEB /* FMCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FMCollectionViewCell.xib; sourceTree = "<group>"; };
 		55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -124,9 +119,6 @@
 				55949E1C1AAA4B8400569AEB /* FMViewController.m */,
 				5501B2D41AAC1810009BF543 /* HistoryViewController.h */,
 				5501B2D51AAC1810009BF543 /* HistoryViewController.m */,
-				55949E341AAA58AA00569AEB /* FMCollectionViewCell.h */,
-				55949E351AAA58AA00569AEB /* FMCollectionViewCell.m */,
-				55949E361AAA58AA00569AEB /* FMCollectionViewCell.xib */,
 				55949E2E1AAA550200569AEB /* CategoryViewController.h */,
 				55949E2F1AAA550200569AEB /* CategoryViewController.m */,
 				55949E1F1AAA509C00569AEB /* Components.h */,
@@ -251,7 +243,6 @@
 				55949E011AAA48EC00569AEB /* Main.storyboard in Resources */,
 				55949E061AAA48EC00569AEB /* LaunchScreen.xib in Resources */,
 				55949E031AAA48EC00569AEB /* Images.xcassets in Resources */,
-				55949E381AAA58AA00569AEB /* FMCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +264,6 @@
 				55949E211AAA509C00569AEB /* Components.m in Sources */,
 				5501B2D61AAC1810009BF543 /* HistoryViewController.m in Sources */,
 				55949DF51AAA48EC00569AEB /* main.m in Sources */,
-				55949E371AAA58AA00569AEB /* FMCollectionViewCell.m in Sources */,
 				55949E2A1AAA536100569AEB /* Categories.m in Sources */,
 				55949E301AAA550200569AEB /* CategoryViewController.m in Sources */,
 				55949E1D1AAA4B8400569AEB /* FMViewController.m in Sources */,

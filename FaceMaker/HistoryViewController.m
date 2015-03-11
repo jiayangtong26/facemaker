@@ -17,6 +17,7 @@
 @implementation HistoryViewController
 
 - (void)viewDidLoad {
+    self.status = 0;
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
     //[self.view setAlpha:0.7];
@@ -25,6 +26,10 @@
     [self.scrollview setScrollEnabled:YES];
     [self.scrollview setBounces:YES];
     [self.view addSubview:self.scrollview];
+    UITapGestureRecognizer *tscroll = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handlescroll:)];
+    [tscroll setNumberOfTouchesRequired:1];
+    [tscroll setDelegate:self];
+    [self.scrollview addGestureRecognizer:tscroll];
     // Width constraint
     /*[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollview
                                                           attribute:NSLayoutAttributeWidth
@@ -60,6 +65,22 @@
                                                          multiplier:1.0
                                                            constant:0.0]];*/
     self.automaticallyAdjustsScrollViewInsets = NO;
+
+}
+
+- (void) handlescroll: (UIPanGestureRecognizer *)sender{
+    if(self.status == 0){
+        self.status = 1;
+        [self.tabBarController.tabBar setHidden:YES];
+        [self.navigationController.navigationBar setHidden:YES];
+        NSLog(@"sta = 0");
+    }
+    else{
+        self.status = 0;
+        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController.navigationBar setHidden:NO];
+        NSLog(@"sta = 1");
+    }
 
 }
 

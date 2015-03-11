@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryViewController : UIViewController{
-}
+@interface HistoryViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property NSMutableArray *assets;
+@property int status;
 
 
 @end

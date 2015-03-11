@@ -12,7 +12,6 @@
 
 @interface CategoryViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UICollectionViewCell * cselectedcell;
-@property (nonatomic, assign) CType type;
 @property (nonatomic, strong) Categories *categories;
 
 @end
@@ -61,16 +60,17 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FMCollectionViewCell" forIndexPath:indexPath];
     if (!cell) {
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.height)];
+        //cell = [[UICollectionViewCell alloc]init];
     }
     cell.layer.borderWidth = 2;
     cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
     Components *components = [self.categories componentsAtIndex:indexPath.row];
     CALayer * layer = [[CALayer alloc]init];
-    layer =[components thumbnailLayer];
+    layer = [components thumbnailLayer];
     layer.frame = cell.layer.bounds;
     [cell.layer addSublayer:layer];
-    
+    [self.view bringSubviewToFront:cell];
     return cell;
 }
 
@@ -93,12 +93,12 @@
 {
     return CGSizeMake(self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
 }
-/*
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(10, 15, 10, 0);
 }
-*/
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 10;

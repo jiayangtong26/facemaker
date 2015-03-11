@@ -15,6 +15,7 @@
 @interface CategoryViewController : UIViewController
 @property (weak, nonatomic) id <CategoriesSelectionDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, assign) CType type;
 
 + (CategoryViewController *)createCategoriesViewControllerWithType:(CType)type;
 

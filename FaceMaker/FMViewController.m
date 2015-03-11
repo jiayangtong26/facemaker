@@ -13,6 +13,7 @@
 @interface FMViewController ()<CategoriesSelectionDelegate>
 @property (nonatomic, strong) NSMutableDictionary *bodies;
 @property (nonatomic, strong) NSMutableArray *buttons;
+@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, assign) CType currentCategories;
 @property (nonatomic, strong) CALayer *indicator;
 
@@ -28,8 +29,8 @@
 {
     [super viewDidLoad];
     
-    self.faceview = [[UIView alloc]initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 1.5, self.view.frame.size.width, self.view.frame.size.height*3/5)];
-    self.funcview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 1.5 + self.view.frame.size.height*3/5, self.view.frame.size.width, self.view.frame.size.height/15)];
+    self.faceview = [[UIView alloc]initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 1.3, self.view.frame.size.width, self.view.frame.size.height*3/5)];
+    self.funcview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 1.3 + self.view.frame.size.height*3/5, self.view.frame.size.width, self.view.frame.size.height/15)];
     [self.view addSubview:self.faceview];
     [self.view addSubview:self.funcview];
     [self.view bringSubviewToFront:self.faceview];
@@ -37,6 +38,7 @@
     [self configureCategoriesView];
     [self configureButtons];
     [self configureNavigationbar];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,26 +56,36 @@
 
 - (void)configureCategoriesView
 {
+    self.images = [[NSMutableArray alloc]init];
     for (CType type = CTypeBackground; type <= CTypeDecoration; type++) {
         @autoreleasepool {
             CategoryViewController *vc = [CategoryViewController createCategoriesViewControllerWithType:type];
             [vc.view setFrame:CGRectMake(0,
                                          self.view.frame.size.height*2/3 + self.navigationController.navigationBar.frame.size.height * 1.3,
-                                         self.faceview.frame.size.width,
-                                         self.view.frame.size.height/4)];
+                                         self.view.frame.size.width,
+                                         self.view.frame.size.height/5)];
             vc.delegate = self;
+            [self.images addObject:vc.view];
             [self addChildViewController:vc];
+            
         }
     }
     
-    UIViewController *vc = [self.childViewControllers objectAtIndex:0];
-    [self.view addSubview:vc.view];
-    [self.view bringSubviewToFront:vc.view];
+   // UIViewController *vc = [self.childViewControllers objectAtIndex:0];
+    // [self.view addSubview:vc.view];
+    [self.images addObject:[[UIView alloc]initWithFrame:CGRectMake(0,
+                                                                   self.view.frame.size.height*2/3 + self.navigationController.navigationBar.frame.size.height * 1.3,
+                                                                   self.view.frame.size.width,
+                                                                   self.view.frame.size.height/5)] ];
+    [self.view addSubview:[self.images objectAtIndex:15]];
+    
+    self.currentCategories = 15;
 }
 
 - (void)configureNavigationbar
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"twitter" style:UIBarButtonItemStylePlain target:self action:@selector(twitter)];
 }
 
 - (void)saveToAlbumWithMetadata:(NSDictionary *)metadata
@@ -105,11 +117,12 @@
             }
         }];
     };
+    ALAssetsLibrary *tmp = assetsLibrary;
     [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
         if (customAlbumName) {
             [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
                 if (group) {
-                    [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                    [tmp assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                         [group addAsset:asset];
                         if (completionBlock) {
                             completionBlock();
@@ -120,10 +133,10 @@
                         }
                     }];
                 } else {
-                    AddAsset(assetsLibrary, assetURL);
+                    AddAsset(tmp, assetURL);
                 }
             } failureBlock:^(NSError *error) {
-                AddAsset(assetsLibrary, assetURL);
+                AddAsset(tmp, assetURL);
             }];
         } else {
             if (completionBlock) {
@@ -132,10 +145,40 @@
         }
     }];
 }
-
+- (void)twitter{
+    for(int type = 0; type < 15; type++){
+        if ([self.bodies objectForKey:@(type)]) {
+            CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+            [layer removeFromSuperlayer];
+            [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
+            [self.faceview.layer addSublayer:layer];
+            self.currentCategories = type;
+        }
+    }
+    UIGraphicsBeginImageContext(self.faceview.bounds.size);
+    [self.faceview.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    SLComposeViewController *tweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    [tweet setInitialText:[[NSString alloc] initWithFormat:@"I make my own face!\n"]];
+    [self presentViewController:tweet animated:YES completion:nil];
+    
+    [tweet addImage:image];
+}
 - (void)save
 {
-    UIGraphicsBeginImageContext(self.faceview.layer.bounds.size);
+    for(int type = 0; type < 15; type++){
+        if ([self.bodies objectForKey:@(type)]) {
+            CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+            [layer removeFromSuperlayer];
+            [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
+            [self.faceview.layer addSublayer:layer];
+            self.currentCategories = type;
+        }
+    }
+    UIGraphicsBeginImageContext(self.faceview.bounds.size);
     [self.faceview.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -164,7 +207,6 @@
             
             if (!haveHDRGroup)
             {
-                //do add a group named "XXXX"
                 [assetsLibrary addAssetsGroupAlbumWithName:@"FaceMaker"
                                                resultBlock:^(ALAssetsGroup *group)
                  {
@@ -198,18 +240,8 @@
              }
          });
      }];
-    
-    
-    //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
-/*
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"save" message:@"Save Successfully" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    
-    [alert show];
-}
-*/
+
 - (NSString *)stringFromType:(CType)type
 {
     if (type == CTypeFace) return @"Face";
@@ -235,7 +267,7 @@
 {
     self.buttons = [[NSMutableArray alloc] init];
     self.indicator = [CALayer layer];
-    self.indicator.backgroundColor = [UIColor colorWithRed:11.0f/255.0f green:110.f/255.0f blue:198.0f/255.0f alpha:0.6].CGColor;
+    self.indicator.backgroundColor = [UIColor blueColor].CGColor;
     
     for (CType type = CTypeBackground; type <= CTypeDecoration; type++) {
         @autoreleasepool {
@@ -252,7 +284,7 @@
             [self.buttons addObject:button];
         }
     }
-    self.indicator.frame = CGRectMake(0, CGRectGetHeight(self.funcview.frame) - 5, 100, 5);
+    self.indicator.frame = CGRectMake(-100, CGRectGetHeight(self.funcview.frame) - 5, 100, 5);
     [self.funcview.layer addSublayer:self.indicator];
     [self.funcview setContentSize:CGSizeMake(100 * ([self.buttons count] + 1), CGRectGetHeight(self.funcview.frame))];
     [self.view bringSubviewToFront:self.funcview];
@@ -262,11 +294,17 @@
 - (void)didClickButton:(UIButton *)sender
 {
     if (sender.tag == self.currentCategories) return;
-    
+    /*
     [self transitionFromViewController:[self.childViewControllers objectAtIndex:self.currentCategories] toViewController:[self.childViewControllers objectAtIndex:sender.tag] duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         self.currentCategories = (CType)sender.tag;
-    }];
-    
+    }];*/
+    /*
+    [[[self.childViewControllers objectAtIndex:self.currentCategories] view] removeFromSuperview];
+    [self.view addSubview:[[self.childViewControllers objectAtIndex:sender.tag] view]];
+    self.currentCategories = sender.tag;*/
+    [[self.images objectAtIndex:self.currentCategories]removeFromSuperview];
+    [self.view addSubview:[self.images objectAtIndex:sender.tag]];
+    self.currentCategories = (CType)sender.tag;
     self.indicator.frame = CGRectMake(sender.tag * 100 ,
                                       CGRectGetMinY(self.indicator.frame),
                                       CGRectGetWidth(self.indicator.frame),

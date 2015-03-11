@@ -22,6 +22,8 @@
 		55949E2A1AAA536100569AEB /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E291AAA536100569AEB /* Categories.m */; };
 		55949E2D1AAA53D900569AEB /* ImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E2C1AAA53D900569AEB /* ImageResource.m */; };
 		55949E301AAA550200569AEB /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55949E2F1AAA550200569AEB /* CategoryViewController.m */; };
+		55A6BEB51AAFD60800F3F7CB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A6BEB41AAFD60800F3F7CB /* MainViewController.m */; };
+		55E10C231AB001C600AE9D1B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E10C221AB001C600AE9D1B /* Social.framework */; };
 		55FCBD361AAAB270002CA88A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,9 @@
 		55949E2C1AAA53D900569AEB /* ImageResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResource.m; sourceTree = "<group>"; };
 		55949E2E1AAA550200569AEB /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		55949E2F1AAA550200569AEB /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		55A6BEB31AAFD60800F3F7CB /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		55A6BEB41AAFD60800F3F7CB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		55E10C221AB001C600AE9D1B /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -70,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E10C231AB001C600AE9D1B /* Social.framework in Frameworks */,
 				55FCBD361AAAB270002CA88A /* AssetsLibrary.framework in Frameworks */,
 				55949E271AAA519B00569AEB /* UIKit.framework in Frameworks */,
 				55949E251AAA518100569AEB /* Foundation.framework in Frameworks */,
@@ -90,6 +96,7 @@
 		55949DE61AAA48EC00569AEB = {
 			isa = PBXGroup;
 			children = (
+				55E10C221AB001C600AE9D1B /* Social.framework */,
 				55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */,
 				55949E261AAA519B00569AEB /* UIKit.framework */,
 				55949E241AAA518100569AEB /* Foundation.framework */,
@@ -115,12 +122,14 @@
 				55949DF61AAA48EC00569AEB /* AppDelegate.h */,
 				55949DF71AAA48EC00569AEB /* AppDelegate.m */,
 				55949DFF1AAA48EC00569AEB /* Main.storyboard */,
+				55A6BEB31AAFD60800F3F7CB /* MainViewController.h */,
+				55A6BEB41AAFD60800F3F7CB /* MainViewController.m */,
 				55949E1B1AAA4B8400569AEB /* FMViewController.h */,
 				55949E1C1AAA4B8400569AEB /* FMViewController.m */,
-				5501B2D41AAC1810009BF543 /* HistoryViewController.h */,
-				5501B2D51AAC1810009BF543 /* HistoryViewController.m */,
 				55949E2E1AAA550200569AEB /* CategoryViewController.h */,
 				55949E2F1AAA550200569AEB /* CategoryViewController.m */,
+				5501B2D41AAC1810009BF543 /* HistoryViewController.h */,
+				5501B2D51AAC1810009BF543 /* HistoryViewController.m */,
 				55949E1F1AAA509C00569AEB /* Components.h */,
 				55949E201AAA509C00569AEB /* Components.m */,
 				55949E281AAA536100569AEB /* Categories.h */,
@@ -264,6 +273,7 @@
 				55949E211AAA509C00569AEB /* Components.m in Sources */,
 				5501B2D61AAC1810009BF543 /* HistoryViewController.m in Sources */,
 				55949DF51AAA48EC00569AEB /* main.m in Sources */,
+				55A6BEB51AAFD60800F3F7CB /* MainViewController.m in Sources */,
 				55949E2A1AAA536100569AEB /* Categories.m in Sources */,
 				55949E301AAA550200569AEB /* CategoryViewController.m in Sources */,
 				55949E1D1AAA4B8400569AEB /* FMViewController.m in Sources */,

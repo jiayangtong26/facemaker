@@ -9,13 +9,13 @@
 #import "ImageResource.h"
 static NSArray *resources = nil;
 @implementation ImageResource
-
+//init the static resource
 + (NSArray *)resourceArray
 {
     if (!resources) {
         resources = [NSArray arrayWithObjects:
                      [NSArray arrayWithObjects:@"o1", @"o2", @"o3", @"o4", @"o5", @"o6", @"o7", @"o8", @"o9", nil],
-                     [NSArray arrayWithObjects:@"l1", @"l2", @"l3", nil],
+                     [NSArray arrayWithObjects:@"l1", @"l2", @"l3", @"l4", nil],
                      [NSArray arrayWithObjects:@"a1", @"a2", @"a3", nil],
                      [NSArray arrayWithObjects:@"b1", @"b2", @"b3", nil],
                      [NSArray arrayWithObjects:@"c1", @"c2", @"c3", nil],
@@ -28,7 +28,7 @@ static NSArray *resources = nil;
                      [NSArray arrayWithObjects:@"j1", @"j2", @"j3", @"j4", nil],
                      [NSArray arrayWithObjects:@"k1", @"k2", @"k3", @"k4", nil],
                      [NSArray arrayWithObjects:@"m1", @"m2", @"m3", nil],
-                     [NSArray arrayWithObjects:@"n1", @"n2", @"n3", @"n4", @"n5", @"n6", nil],
+                     [NSArray arrayWithObjects:@"n1", @"n2", @"n3", @"n4", @"n5", nil],
                      nil];
     }
     return resources;

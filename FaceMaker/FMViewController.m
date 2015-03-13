@@ -11,15 +11,14 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface FMViewController ()<CategoriesSelectionDelegate>
-@property (nonatomic, strong) NSMutableDictionary *bodies;
 @property (nonatomic, strong) NSMutableArray *buttons;
-@property (nonatomic, strong) NSMutableArray *images;
-@property (nonatomic, assign) CType currentCategories;
-@property (nonatomic, strong) CALayer *indicator;
+@property (nonatomic, strong) NSMutableArray *images;   //saves each collection view controlled by buttons
+@property (nonatomic, assign) CType currentCategories;  //indicates the current type you just chosed
+@property (nonatomic, strong) CALayer *indicator;       //indicates which button you just clicked
 
-- (void)configureCategoriesView;
-- (void)configureButtons;
-- (void)configureNavigationbar;
+- (void)configureCategoriesView;        //configure the category view(collection view)
+- (void)configureButtons;               //configure the button view(scroll view)
+- (void)configureNavigationbar;         //configure the navigation bar button(twitter and save)
 
 @end
 
@@ -45,15 +44,7 @@
 {
     [super didReceiveMemoryWarning];
 }
-
-- (NSMutableDictionary *)bodies
-{
-    if (!_bodies) {
-        _bodies = [[NSMutableDictionary alloc] init];
-    }
-    return _bodies;
-}
-
+//load collection view data(15 types of collection view)
 - (void)configureCategoriesView
 {
     self.images = [[NSMutableArray alloc]init];
@@ -71,8 +62,6 @@
         }
     }
     
-   // UIViewController *vc = [self.childViewControllers objectAtIndex:0];
-    // [self.view addSubview:vc.view];
     [self.images addObject:[[UIView alloc]initWithFrame:CGRectMake(0,
                                                                    self.view.frame.size.height*2/3 + self.navigationController.navigationBar.frame.size.height * 1.3,
                                                                    self.view.frame.size.width,
@@ -81,13 +70,13 @@
     
     self.currentCategories = 15;
 }
-
+//load the buttons in navigation bar
 - (void)configureNavigationbar
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"twitter" style:UIBarButtonItemStylePlain target:self action:@selector(twitter)];
 }
-
+//save the avartar to the photo album in the IOS device(called by save)
 - (void)saveToAlbumWithMetadata:(NSDictionary *)metadata
                       imageData:(NSData *)imageData
                 customAlbumName:(NSString *)customAlbumName
@@ -145,21 +134,22 @@
         }
     }];
 }
+//post the avartar you just make to your twitter
 - (void)twitter{
     for(int type = 0; type < 15; type++){
-        if ([self.bodies objectForKey:@(type)]) {
-            CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+        CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+        if (layer) {
             [layer removeFromSuperlayer];
             [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
             [self.faceview.layer addSublayer:layer];
             self.currentCategories = type;
         }
     }
+    NSLog(@"Twitter Request!");
     UIGraphicsBeginImageContext(self.faceview.bounds.size);
     [self.faceview.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     
     SLComposeViewController *tweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     [tweet setInitialText:[[NSString alloc] initWithFormat:@"I make my own face!\n"]];
@@ -167,17 +157,19 @@
     
     [tweet addImage:image];
 }
+//save the avartar to the photo album after clicking the save button
 - (void)save
 {
     for(int type = 0; type < 15; type++){
-        if ([self.bodies objectForKey:@(type)]) {
-            CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+        CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
+        if (layer) {
             [layer removeFromSuperlayer];
             [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
             [self.faceview.layer addSublayer:layer];
             self.currentCategories = type;
         }
     }
+    NSLog(@"Saving the photo!");
     UIGraphicsBeginImageContext(self.faceview.bounds.size);
     [self.faceview.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -211,6 +203,7 @@
                                                resultBlock:^(ALAssetsGroup *group)
                  {
                      [groups addObject:group];
+                     NSLog(@"Creating the FaceMaker Album");
                      
                  }
                                               failureBlock:nil];
@@ -222,6 +215,7 @@
     [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
     [self saveToAlbumWithMetadata:nil imageData:UIImagePNGRepresentation(image) customAlbumName:@"FaceMaker" completionBlock:^
      {
+         NSLog(@"successfully saving the photo!");
          UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"save" message:@"Save Successfully" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
          
          [alert show];
@@ -242,8 +236,11 @@
      }];
 }
 
+//turn the Integer enum type CType to the NSString it matches
+
 - (NSString *)stringFromType:(CType)type
 {
+    if (type == CTypeBackground) return @"BGD";
     if (type == CTypeFace) return @"Face";
     if (type == CTypeBody) return @"Body";
     if (type == CTypeBrow) return @"Brow";
@@ -258,11 +255,13 @@
     if (type == CTypeNecklace)return @"Necklace";
     if (type == CTypeCloth)return @"Cloth";
     if (type == CTypeDecoration) return @"Decoration";
-    if (type == CTypeBackground) return @"BGD";
     
     return nil;
 }
 
+
+//configure the scroll view which consist of buttons and one indicator
+//These buttons helps to choose type(like face or nose or hair etc.)
 - (void)configureButtons
 {
     self.buttons = [[NSMutableArray alloc] init];
@@ -291,17 +290,11 @@
     [self.view bringSubviewToFront:self.faceview];
 }
 
+//If click the button on the scrollview, the category view(collection view) should change to the type that the button refers
 - (void)didClickButton:(UIButton *)sender
 {
     if (sender.tag == self.currentCategories) return;
-    /*
-    [self transitionFromViewController:[self.childViewControllers objectAtIndex:self.currentCategories] toViewController:[self.childViewControllers objectAtIndex:sender.tag] duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
-        self.currentCategories = (CType)sender.tag;
-    }];*/
-    /*
-    [[[self.childViewControllers objectAtIndex:self.currentCategories] view] removeFromSuperview];
-    [self.view addSubview:[[self.childViewControllers objectAtIndex:sender.tag] view]];
-    self.currentCategories = sender.tag;*/
+    NSLog(@"Changing the type!");
     [[self.images objectAtIndex:self.currentCategories]removeFromSuperview];
     [self.view addSubview:[self.images objectAtIndex:sender.tag]];
     self.currentCategories = (CType)sender.tag;
@@ -310,23 +303,27 @@
                                       CGRectGetWidth(self.indicator.frame),
                                       CGRectGetHeight(self.indicator.frame));
 }
-
+//If select the item in collection view, it should change the faceview(reflecting the editing avartar)
 - (void)didSelectComponentsInCategories:(Components *)selectedComponent type:(CType)type selectionIndex:(NSInteger)index
 {
+    NSLog(@"Changing your selection!");
     CALayer *layer = [selectedComponent componentLayer];
     layer.zPosition = type;
     layer.contentsScale = self.faceview.bounds.size.width / 500.0f;
     layer.frame = self.faceview.layer.bounds;
     
-    if ([self.bodies objectForKey:@(type)]) {
-        CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
-        [layer removeFromSuperlayer];
+    CALayer *layer2 = [self.faceview.layer valueForKey:[self stringFromType:type]];
+    if (layer2) {
+        [layer2 removeFromSuperlayer];
     }
-    
+    if(layer2 != layer){
     [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
     [self.faceview.layer addSublayer:layer];
-    [self.bodies setObject:@(index) forKey:@(type)];
     self.currentCategories = type;
+    }
+    else{
+        [self.faceview.layer setValue:nil forKey:[self stringFromType:type]];
+    }
 }
 
 

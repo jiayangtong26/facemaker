@@ -18,6 +18,7 @@
 
 @implementation CategoryViewController
 
+//init function with parameter CType
 + (CategoryViewController *)createCategoriesViewControllerWithType:(CType)type
 {
     CategoryViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CategoryViewCotroller"];
@@ -28,7 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   // [self.collectionView registerNib:[UINib nibWithNibName:@"FMCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"FMCollectionViewCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,6 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+//init the categories
 - (Categories *)categories
 {
     if (!_categories) {

@@ -20,7 +20,6 @@
     self.status = 0;
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
-    //[self.view setAlpha:0.7];
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 3, self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height * 3 - self.tabBarController.tabBar.frame.size.height * 2)];
     [self.scrollview setPagingEnabled:YES];
     [self.scrollview setScrollEnabled:YES];
@@ -30,67 +29,33 @@
     [tscroll setNumberOfTouchesRequired:1];
     [tscroll setDelegate:self];
     [self.scrollview addGestureRecognizer:tscroll];
-    // Width constraint
-    /*[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollview
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeWidth
-                                                         multiplier:1.0
-                                                           constant:self.view.frame.size.width]];
-    
-    // Height constraint
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollview
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeHeight
-                                                         multiplier:1.0
-                                                           constant:self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height * 3 - self.tabBarController.tabBar.frame.size.height * 2]];
-    // Center horizontally
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollview
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.0
-                                                           constant:0.0]];
-    
-    // Center vertically
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollview
-                                                          attribute:NSLayoutAttributeCenterY
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterY
-                                                         multiplier:1.0
-                                                           constant:0.0]];*/
     self.automaticallyAdjustsScrollViewInsets = NO;
 
 }
-
-- (void) handlescroll: (UIPanGestureRecognizer *)sender{
+//function about gesture to hide and dishide the navigation bar and tab bar
+- (void) handlescroll: (UITapGestureRecognizer *)sender{
     if(self.status == 0){
         self.status = 1;
         [self.tabBarController.tabBar setHidden:YES];
         [self.navigationController.navigationBar setHidden:YES];
-        NSLog(@"sta = 0");
+        NSLog(@"Hiding the tab bar and navigation bar!");
     }
     else{
         self.status = 0;
         [self.tabBarController.tabBar setHidden:NO];
         [self.navigationController.navigationBar setHidden:NO];
-        NSLog(@"sta = 1");
+        NSLog(@"Tab bar and navigation bar appear!");
     }
 
 }
-
+//read photos from the album
 - (void)viewWillAppear:(BOOL)animated {
 
     [self.view bringSubviewToFront:self.scrollview];
     
     self.assets = [[NSMutableArray alloc] init];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
+    NSLog(@"Reading photos from the FaceMaker Album!");
     void (^assetEnumerator)(ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
         	if(result != NULL) {
             		NSLog(@"See Asset: %@", result);
@@ -130,15 +95,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

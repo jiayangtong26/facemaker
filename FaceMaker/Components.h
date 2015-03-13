@@ -5,7 +5,10 @@
 //  Created by slim on 15-3-6.
 //  Copyright (c) 2015年 UC CS. All rights reserved.
 //
-
+/*************************
+*Declare the components of a face.
+*componentLayer contains the original images of components while thumbnailLayer contains the thumbnail images. 
+ ************************/
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>

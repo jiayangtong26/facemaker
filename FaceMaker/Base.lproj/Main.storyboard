@@ -16,25 +16,9 @@
                     <view key="view" contentMode="scaleToFill" id="3z9-xP-ZEV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to FaceMaker!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHu-pU-XI0">
-                                <rect key="frame" x="16" y="65" width="568" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="4a0-5A-xYw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="iHu-pU-XI0" firstAttribute="top" secondItem="66S-nb-cZh" secondAttribute="bottom" constant="45" id="YO0-zg-VGZ"/>
-                            <constraint firstItem="iHu-pU-XI0" firstAttribute="leading" secondItem="3z9-xP-ZEV" secondAttribute="leadingMargin" id="nzG-y4-NL5"/>
-                            <constraint firstItem="iHu-pU-XI0" firstAttribute="trailing" secondItem="3z9-xP-ZEV" secondAttribute="trailingMargin" id="xQR-Lm-HrP"/>
-                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Main" id="uPg-di-mMk"/>
+                    <tabBarItem key="tabBarItem" title="Main" image="main" id="uPg-di-mMk"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCy-Sq-Uou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -139,7 +123,7 @@
         <scene sceneID="0ah-DC-kwA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PF9-IG-kHD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Make" id="sgj-e2-DxV"/>
+                    <tabBarItem key="tabBarItem" title="Make" image="make" id="sgj-e2-DxV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dgs-8z-nTk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -173,11 +157,11 @@
             </objects>
             <point key="canvasLocation" x="1546" y="1038"/>
         </scene>
-        <!--History-->
+        <!--Navigation Controller-->
         <scene sceneID="mjU-qL-UCz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ysc-GM-5WT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" id="Qzz-Fu-IfE"/>
+                    <tabBarItem key="tabBarItem" systemItem="history" id="Qzz-Fu-IfE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FcY-Ci-XuW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -193,4 +177,8 @@
             <point key="canvasLocation" x="734" y="1038"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="main" width="25" height="25"/>
+        <image name="make" width="25" height="25"/>
+    </resources>
 </document>

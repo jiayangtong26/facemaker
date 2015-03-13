@@ -6,6 +6,10 @@
 //  Copyright (c) 2015年 UC CS. All rights reserved.
 //
 
+/*************************
+ *This ViewController is written for the collection view in the FMViewController
+ ************************/
+
 #import <UIKit/UIKit.h>
 #import "Components.h"
 @protocol CategoriesSelectionDelegate <NSObject>
@@ -17,6 +21,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, assign) CType type;
 
-+ (CategoryViewController *)createCategoriesViewControllerWithType:(CType)type;
++ (CategoryViewController *)createCategoriesViewControllerWithType:(CType)type;     //init function
 
 @end

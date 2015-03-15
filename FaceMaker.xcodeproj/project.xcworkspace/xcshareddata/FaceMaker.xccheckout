@@ -12,8 +12,6 @@
 	<dict>
 		<key>1AE002E6B47740026BE0B3A6EFC752FD6E3AD2E6</key>
 		<string>https://github.com/jiayangtong26/facemaker.git</string>
-		<key>99989027246CE0A8FBD284DC99CED2055DB4C5EF</key>
-		<string>https://github.com/uchicago-mobi/jiayangtong26-MPCS51030-Winter-2015-Assignment-5.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>FaceMaker.xcodeproj</string>
@@ -21,8 +19,6 @@
 	<dict>
 		<key>1AE002E6B47740026BE0B3A6EFC752FD6E3AD2E6</key>
 		<string>../..</string>
-		<key>99989027246CE0A8FBD284DC99CED2055DB4C5EF</key>
-		<string>../../../jiayangtong26-MPCS51030-Winter-2015-Assignment-5</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/jiayangtong26/facemaker.git</string>
@@ -39,14 +35,6 @@
 			<string>1AE002E6B47740026BE0B3A6EFC752FD6E3AD2E6</string>
 			<key>IDESourceControlWCCName</key>
 			<string>facemaker</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>99989027246CE0A8FBD284DC99CED2055DB4C5EF</string>
-			<key>IDESourceControlWCCName</key>
-			<string>jiayangtong26-MPCS51030-Winter-2015-Assignment-5</string>
 		</dict>
 	</array>
 </dict>

@@ -37,12 +37,12 @@
     
     //set the image on the main page
     self.bg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background.png"]];
-    [self.bg setFrame:CGRectMake(0, self.view.frame.size.height * 0.15, self.view.frame.size.width, self.view.frame.size.height * 0.7)];
+    [self.bg setFrame:CGRectMake(0, self.view.frame.size.height * 0.15, self.view.frame.size.width, self.view.frame.size.height * 0.67)];
     [self.view addSubview:self.bg];
     
     //set the instruction button on the main page
     self.instru = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.instru.frame =CGRectMake(self.view.frame.size.width * 0.3, self.view.frame.size.height * 0.85, self.view.frame.size.width * 0.4, self.view.frame.size.height * 0.05);
+    self.instru.frame =CGRectMake(self.view.frame.size.width * 0.3, self.view.frame.size.height * 0.83, self.view.frame.size.width * 0.4, self.view.frame.size.height * 0.05);
     [self.instru setTitle:@"instuction" forState:UIControlStateNormal];
     self.instru.titleLabel.font = [UIFont fontWithName:@"Noteworthy-Bold" size:23.0];
     self.instru.titleLabel.textAlignment = NSTextAlignmentCenter;

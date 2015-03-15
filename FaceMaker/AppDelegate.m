@@ -47,6 +47,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+// Initialize the user preferences at launch
 - (void)setSettingsPreferenceDefaults {
     NSLog(@"Initializing Setting Preference at launch");
     NSString *plistName = @"Root";
@@ -70,6 +72,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultSetting];
 }
 
+
+// Create a NSUserPreference named “Initial Launch” that stores an NSDate on first launch
 - (void)setInitialLaunchPreferenceDefaults {
     NSLog(@"Creating Initial Launch user preference");
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:[NSDate date]
@@ -78,7 +82,8 @@
     NSLog(@"NSUserDefaults: \"Initial Launch\" = %@", [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"Initial Launch"]);
 }
 
-#pragma mark - Appearance Proxy
+
+// use the Appearance Proxy to set the font and color of Navigation Bar and Bar Button item
 - (void)customizeAppearance {
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

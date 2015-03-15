@@ -16,6 +16,8 @@
 
 @implementation Components
 
+
+// return a Component instance
 + (Components *)createComponentsWithName:(NSString *)name
 {
     Components *component = [[Components alloc] init];
@@ -24,6 +26,8 @@
     return component;
 }
 
+
+// return a component layer that is ready to be inserted into the drawing board
 - (CALayer *)componentLayer
 {
     if (!_componentLayer) {
@@ -33,6 +37,8 @@
     return _componentLayer;
 }
 
+
+// return a component layer that is ready to be inserted into a UICollectionViewCell
 - (CALayer *)thumbnailLayer
 {
     if (!_thumbnailLayer) {

@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [self setSettingsPreferenceDefaults];
+    [self setInitialLaunchPreferenceDefaults];
+    [self customizeAppearance];
+    
     return YES;
 }
 
@@ -40,6 +45,54 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setSettingsPreferenceDefaults {
+    NSLog(@"Initializing Setting Preference at launch");
+    NSString *plistName = @"Root";
+    NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+    NSAssert(settingsBundle, @"Could not find Settings.bundle while loading defaults.");
+    NSString *plistFullName = [NSString stringWithFormat:@"%@.plist", plistName];
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:[settingsBundle stringByAppendingPathComponent:plistFullName]];
+    NSAssert1(settings, @"Could not load plist '%@' while loading defaults.", plistFullName);
+    NSArray *preferences = [settings objectForKey:@"PreferenceSpecifiers"];
+    NSAssert1(preferences, @"Could not find preferences entry in plist '%@' while loading defaults.",
+              plistFullName);
+    NSMutableDictionary *defaultSetting = [NSMutableDictionary dictionary];
+    for(NSDictionary *prefSpecification in preferences) {
+        NSString *key = [prefSpecification objectForKey:@"Key"];
+        id value = [prefSpecification objectForKey:@"DefaultValue"];
+        if(key && value) {
+            NSLog(@"NSUserDefaults: \"%@\" = \"%@\"", key, value);
+            [defaultSetting setObject:value forKey:key];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultSetting];
+}
+
+- (void)setInitialLaunchPreferenceDefaults {
+    NSLog(@"Creating Initial Launch user preference");
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:[NSDate date]
+                                                            forKey:@"Initial Launch"];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    NSLog(@"NSUserDefaults: \"Initial Launch\" = %@", [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"Initial Launch"]);
+}
+
+#pragma mark - Appearance Proxy
+- (void)customizeAppearance {
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [UIColor blackColor],
+                                                          NSForegroundColorAttributeName,
+                                                          [UIFont fontWithName:@"Noteworthy-Bold" size:20.0],
+                                                          NSFontAttributeName,
+                                                          nil]];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [UIColor blueColor],
+                                                          NSForegroundColorAttributeName,
+                                                          [UIFont fontWithName:@"Noteworthy-Bold" size:20.0],
+                                                          NSFontAttributeName,
+                                                          nil] forState:UIControlStateNormal];
 }
 
 @end

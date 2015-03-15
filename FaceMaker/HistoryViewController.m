@@ -21,6 +21,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height * 3, self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height * 3 - self.tabBarController.tabBar.frame.size.height * 2)];
+    //self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2 - self.view.frame.size.width/2, self.view.frame.size.width, self.view.frame.size.width)];
     [self.scrollview setPagingEnabled:YES];
     [self.scrollview setScrollEnabled:YES];
     [self.scrollview setBounces:YES];
@@ -32,6 +33,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
 }
+
+
 //function about gesture to hide and dishide the navigation bar and tab bar
 - (void) handlescroll: (UITapGestureRecognizer *)sender{
     if(self.status == 0){
@@ -48,6 +51,8 @@
     }
 
 }
+
+
 //read photos from the album
 - (void)viewWillAppear:(BOOL)animated {
 
@@ -63,10 +68,12 @@
             	}
             else{
                 self.scrollview.contentSize = CGSizeMake(self.assets.count *self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height * 3 - self.tabBarController.tabBar.frame.size.height * 2);
+                //self.scrollview.contentSize = CGSizeMake(self.assets.count *self.view.frame.size.width, self.view.frame.size.width);
                 for(int i = 0; i < self.assets.count; i++){
                     ALAsset *asset = [self.assets objectAtIndex:i];
                     UIImage* image = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
                     UIImageView * imageview = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height * 3 - self.navigationController.navigationBar.frame.size.height * 2)];
+                    //UIImageView * imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2 - self.view.frame.size.width/2, self.view.frame.size.width, self.view.frame.size.width)];
                     [imageview setImage:image];
                     [self.scrollview addSubview:imageview];
                     [self.scrollview bringSubviewToFront:imageview];
@@ -91,9 +98,9 @@
                					 }];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 @end

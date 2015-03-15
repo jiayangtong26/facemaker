@@ -40,11 +40,16 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-//load collection view data(15 types of collection view)
+
+
+/*!
+ * @brief load collection view data (15 types of collection view)
+ */
 - (void)configureCategoriesView
 {
     self.images = [[NSMutableArray alloc]init];
@@ -70,13 +75,21 @@
     
     self.currentCategories = 15;
 }
-//load the buttons in navigation bar
+
+
+/*!
+ * @brief load the buttons in navigation bar
+ */
 - (void)configureNavigationbar
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"twitter" style:UIBarButtonItemStylePlain target:self action:@selector(twitter)];
 }
-//save the avartar to the photo album in the IOS device(called by save)
+
+
+/*!
+ * @brief save the avartar to the photo album in the IOS device(called by save)
+ */
 - (void)saveToAlbumWithMetadata:(NSDictionary *)metadata
                       imageData:(NSData *)imageData
                 customAlbumName:(NSString *)customAlbumName
@@ -134,8 +147,13 @@
         }
     }];
 }
-//post the avartar you just make to your twitter
+
+
+/*!
+ * @brief post the avartar you just made via your Twitter account
+ */
 - (void)twitter{
+    //reset the layer hierarchy of the picture before post it
     for(int type = 0; type < 15; type++){
         CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
         if (layer) {
@@ -152,14 +170,19 @@
     UIGraphicsEndImageContext();
     
     SLComposeViewController *tweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    //set the default tweet text
     [tweet setInitialText:[[NSString alloc] initWithFormat:@"I make my own face!\n"]];
     [self presentViewController:tweet animated:YES completion:nil];
-    
+    //add the avartar to the tweet
     [tweet addImage:image];
 }
-//save the avartar to the photo album after clicking the save button
-- (void)save
-{
+
+
+/*!
+ * @brief save the avartar you just made to the local photo album after clicking the 'save' button
+ */
+- (void)save {
+    // reset the layer hierarchy of the picture before save it
     for(int type = 0; type < 15; type++){
         CALayer *layer = [self.faceview.layer valueForKey:[self stringFromType:type]];
         if (layer) {
@@ -174,6 +197,8 @@
     [self.faceview.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    //configure the photo album and save the picture to it
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     NSMutableArray *groups=[[NSMutableArray alloc]init];
     ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop)
@@ -236,8 +261,12 @@
      }];
 }
 
-//turn the Integer enum type CType to the NSString it matches
 
+/*!
+ * @brief turn the Integer enum type CType to the NSString it matches
+ * @param the type (CType) of the picture component
+ * @return the corresponding name of the component.
+ */
 - (NSString *)stringFromType:(CType)type
 {
     if (type == CTypeBackground) return @"BGD";
@@ -260,8 +289,9 @@
 }
 
 
-//configure the scroll view which consist of buttons and one indicator
-//These buttons helps to choose type(like face or nose or hair etc.)
+/*!
+ * @discussion configure the scroll view which consist of buttons and one indicator. These buttons help to choose type (like face or nose or hair etc.)
+ */
 - (void)configureButtons
 {
     self.buttons = [[NSMutableArray alloc] init];
@@ -290,7 +320,10 @@
     [self.view bringSubviewToFront:self.faceview];
 }
 
-//If click the button on the scrollview, the category view(collection view) should change to the type that the button refers
+
+/*!
+ * @brief If click a button on the scrollview, the category view (collection view) should change to the type that the button refers to
+ */
 - (void)didClickButton:(UIButton *)sender
 {
     if (sender.tag == self.currentCategories) return;
@@ -303,25 +336,34 @@
                                       CGRectGetWidth(self.indicator.frame),
                                       CGRectGetHeight(self.indicator.frame));
 }
-//If select the item in collection view, it should change the faceview(reflecting the editing avartar)
+
+
+/*!
+ * @brief If select the item in collection view, it should change the faceview (reflecting the editing avartar)
+ * @param selectedComponent is the component selected by the user
+ * @param type is the corresponding Category type which the selected component belongs to
+ */
 - (void)didSelectComponentsInCategories:(Components *)selectedComponent type:(CType)type selectionIndex:(NSInteger)index
 {
     NSLog(@"Changing your selection!");
-    CALayer *layer = [selectedComponent componentLayer];
-    layer.zPosition = type;
+    CALayer *layer = [selectedComponent componentLayer]; //get the corresponding CALayer of the component, the layer will be putting into the drawing board (faceview)
+    layer.zPosition = type; //set the zPosition of the CALayer
     layer.contentsScale = self.faceview.bounds.size.width / 500.0f;
     layer.frame = self.faceview.layer.bounds;
     
+    //check if this type of component has already been in the drawing board
     CALayer *layer2 = [self.faceview.layer valueForKey:[self stringFromType:type]];
     if (layer2) {
-        [layer2 removeFromSuperlayer];
+        [layer2 removeFromSuperlayer]; //if yes, remove it from the drawing board
     }
+    
+    // if the component (layer) is new, put it into the drawing board
     if(layer2 != layer){
-    [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
-    [self.faceview.layer addSublayer:layer];
-    self.currentCategories = type;
+        [self.faceview.layer setValue:layer forKey:[self stringFromType:type]];
+        [self.faceview.layer addSublayer:layer];
+        self.currentCategories = type; //update the current Category
     }
-    else{
+    else{ //else, remove it.
         [self.faceview.layer setValue:nil forKey:[self stringFromType:type]];
     }
 }

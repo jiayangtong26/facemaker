@@ -9,6 +9,7 @@
 #import "ImageResource.h"
 static NSArray *resources = nil;
 @implementation ImageResource
+
 //init the static resource
 + (NSArray *)resourceArray
 {

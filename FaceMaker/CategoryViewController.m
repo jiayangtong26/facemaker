@@ -50,18 +50,21 @@
 }
 
 
+// CollectionView SDK method, return number of items in a collection section
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [self.categories countOfComponents];
 }
 
 
+// CollectionView SDK method, return number of sections in a collection
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
 
+// CollectionView SDK method, return the collection view cell at the specific index
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FMCollectionViewCell" forIndexPath:indexPath];
@@ -82,6 +85,7 @@
 }
 
 
+// CollectionView SDK method, after user clicks on a certain selection cell, let its delegate (FMViewController) insert corresponding layer component picture into the drawing board. Also change the boarder color of the cell.
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Components *component = [self.categories componentsAtIndex:indexPath.row];
@@ -95,18 +99,21 @@
 }
 
 
+// CollectionView SDK method
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height, self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height);
 }
 
 
+// CollectionView SDK method
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(10, 15, 10, 0);
 }
 
 
+// CollectionView SDK method
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 10;

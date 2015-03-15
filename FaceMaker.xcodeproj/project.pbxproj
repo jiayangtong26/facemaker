@@ -26,7 +26,7 @@
 		55E10C231AB001C600AE9D1B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E10C221AB001C600AE9D1B /* Social.framework */; };
 		55FCBD361AAAB270002CA88A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */; };
 		9F0C9BAD1AB4CD3D005C913E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F0C9BAC1AB4CD3D005C913E /* Settings.bundle */; };
-		9F0C9BB01AB53589005C913E /* PopupUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C9BAF1AB53589005C913E /* PopupUIView.m */; };
+		9FCF0A961AB60E800084F89F /* PopupUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF0A951AB60E800084F89F /* PopupUIView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +71,8 @@
 		55E10C221AB001C600AE9D1B /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		55FCBD351AAAB270002CA88A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9F0C9BAC1AB4CD3D005C913E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		9F0C9BAE1AB53589005C913E /* PopupUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupUIView.h; path = "../../../jiayangtong26-MPCS51030-Winter-2015-Assignment-5/tic tac snow/PopupUIView.h"; sourceTree = "<group>"; };
-		9F0C9BAF1AB53589005C913E /* PopupUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopupUIView.m; path = "../../../jiayangtong26-MPCS51030-Winter-2015-Assignment-5/tic tac snow/PopupUIView.m"; sourceTree = "<group>"; };
+		9FCF0A941AB60E800084F89F /* PopupUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupUIView.h; sourceTree = "<group>"; };
+		9FCF0A951AB60E800084F89F /* PopupUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupUIView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,8 +141,8 @@
 				55949E291AAA536100569AEB /* Categories.m */,
 				55949E2B1AAA53D900569AEB /* ImageResource.h */,
 				55949E2C1AAA53D900569AEB /* ImageResource.m */,
-				9F0C9BAE1AB53589005C913E /* PopupUIView.h */,
-				9F0C9BAF1AB53589005C913E /* PopupUIView.m */,
+				9FCF0A941AB60E800084F89F /* PopupUIView.h */,
+				9FCF0A951AB60E800084F89F /* PopupUIView.m */,
 				55949E021AAA48EC00569AEB /* Images.xcassets */,
 				55949E041AAA48EC00569AEB /* LaunchScreen.xib */,
 				55949DF21AAA48EC00569AEB /* Supporting Files */,
@@ -281,7 +281,7 @@
 				55949DF81AAA48EC00569AEB /* AppDelegate.m in Sources */,
 				55949E211AAA509C00569AEB /* Components.m in Sources */,
 				5501B2D61AAC1810009BF543 /* HistoryViewController.m in Sources */,
-				9F0C9BB01AB53589005C913E /* PopupUIView.m in Sources */,
+				9FCF0A961AB60E800084F89F /* PopupUIView.m in Sources */,
 				55949DF51AAA48EC00569AEB /* main.m in Sources */,
 				55A6BEB51AAFD60800F3F7CB /* MainViewController.m in Sources */,
 				55949E2A1AAA536100569AEB /* Categories.m in Sources */,

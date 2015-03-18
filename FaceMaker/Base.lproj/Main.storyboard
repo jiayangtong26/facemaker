@@ -179,7 +179,7 @@
     </scenes>
     <resources>
         <image name="album" width="50" height="50"/>
-        <image name="main" width="25" height="25"/>
-        <image name="make" width="25" height="25"/>
+        <image name="main" width="50" height="50"/>
+        <image name="make" width="50" height="50"/>
     </resources>
 </document>
